@@ -1,0 +1,29 @@
+plugins {
+    id 'java'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+
+allprojects {
+    apply plugin: 'java'
+     repositories {
+         mavenLocal()
+         mavenCentral()
+    }
+    dependencies {
+        testImplementation 'org.testng:testng:7.7.1'
+
+        compileOnly 'org.projectlombok:lombok:1.18.26'
+        annotationProcessor 'org.projectlombok:lombok:1.18.26'
+        testCompileOnly 'org.projectlombok:lombok:1.18.26'
+        testAnnotationProcessor 'org.projectlombok:lombok:1.18.26'
+    }
+
+    tasks.named('test', Test) {
+        useTestNG()
+        systemProperties['browser'] = System.getProperty("browser")
+        systemProperties['env'] = System.getProperty("env")
+    }
+}

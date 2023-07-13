@@ -1,0 +1,5 @@
+rootProject.name = 'JetBrainsTestTask'
+include 'ui'
+include 'api'
+include 'common'
+

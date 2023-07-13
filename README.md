@@ -1,1 +1,1 @@
-# JetBrainsTestTask
+Repository for test task implementation
