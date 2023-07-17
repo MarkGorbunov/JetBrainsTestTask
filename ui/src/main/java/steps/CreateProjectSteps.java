@@ -81,10 +81,16 @@ public class CreateProjectSteps extends BaseSteps {
             return this;
         }
 
-        public ProjectSteps clickOnProceedButton() {
+        public CreateProjectFromUrl enterDefaultBranch(String branchPath) {
+            createProjectPage.getDefaultBranchInput().clear();
+            createProjectPage.getDefaultBranchInput().setValue(branchPath);
+            return this;
+        }
+
+        public BuildSteps clickOnProceedButton() {
             createProjectPage.getNextButton().click();
             createProjectPage.getNextButton().should(hidden);
-            return new ProjectSteps();
+            return new BuildSteps();
         }
 
         public DuplicateVCSRootModal clickOnProceedButton(Boolean vcsRepeated) {

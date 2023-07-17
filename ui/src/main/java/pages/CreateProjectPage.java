@@ -16,4 +16,5 @@ public class CreateProjectPage {
     private final SelenideElement projectIdInput = $x("//input[@id='externalId']");
     private final SelenideElement projectNameInput = $x("//input[@id='projectName']");
     private final SelenideElement buildNameInput = $x("//input[@id='buildTypeName']");
+    private final SelenideElement defaultBranchInput = $x("//input[@id='branch']");
 }

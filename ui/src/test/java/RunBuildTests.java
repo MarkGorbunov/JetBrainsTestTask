@@ -1,0 +1,60 @@
+import com.utils.RandomUtil;
+import org.testng.annotations.*;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+
+public class RunBuildTests extends BaseTests {
+    String projectName;
+
+    @BeforeMethod
+    public void login() {
+        loginSteps.login("Admin", "Admin");
+        projectName = RandomUtil.generateRandomName();
+    }
+
+    @Test(dataProvider = "runBuildTestDataProvider")
+    public void runFailedBuild(String testName, String branch, String resultMessage) {
+        //todo add log with test name
+        projectsSteps.getTopHeader()
+                .clickOnAddProjectButton()
+                .selectFromRepositoryTab()
+                .selectParentProject("Common Project")
+                .enterRepositoryUrl("https://github.com/MarkGorbunov/SimpleTests.git")
+                .clickOnProceedButton()
+                .enterProjectName(projectName)
+                .enterBuildName(projectName)
+                .enterDefaultBranch(branch)
+                .clickOnProceedButton()
+                .clickOnCheckboxByStepName("Gradle")
+                .clickOnUseSelectedButton()
+                .verifySuccessMessage("New build step added.")
+                .getTopHeader().clickOnProjects()
+                .performProjectSearch(projectName)
+                .clickOnRunBuildButton()
+                .waitBuildFinished()
+                .expandBuildByName(projectName)
+                .verifyBuildStatus(resultMessage);
+    }
+
+    @AfterMethod(alwaysRun = true)
+    public void deleteRun(){
+        projectsSteps.getTopHeader()
+                .clickOnProjects()
+                .performProjectSearch(projectName)
+                .clickOnEditProjectButton()
+                .clickOnDeleteProject()
+                .verifyModalName("Delete " + "\"" + projectName + "\"" + " Project")
+                .enterConfirmationCode("localhost:8112")
+                .clickOnDeleteButton();
+    }
+
+    @DataProvider
+    public Iterator<Object[]> runBuildTestDataProvider(){
+        Collection<Object[]> dp = new ArrayList<>();
+        dp.add(new Object[]{"Run with failed tests", "refs/heads/failed_tests", "Tests failed: 1 (1 new), passed: 1"});
+        dp.add(new Object[]{"Run with passed tests", "refs/heads/passed_tests", "Tests passed: 2"});
+        return dp.iterator();
+    }
+}
