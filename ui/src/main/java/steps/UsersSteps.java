@@ -21,6 +21,20 @@ public class UsersSteps extends AdministrationSteps {
         return this;
     }
 
+    public UsersSteps createUser(String username, String password, boolean isAdmin) {
+        usersPage.getCreateUserLink().click();
+
+        usersPage.getUsername().setValue(username);
+        usersPage.getPassword().setValue(password);
+        usersPage.getConfirmPassword().setValue(password);
+        if (isAdmin) {
+            usersPage.getAdminPermissionsCheckbox().click();
+        }
+        usersPage.getCreateUserButton().click();
+        return this;
+    }
+
+
     public UserSteps navigateToUser(String username) {
         usersPage.getSearchInput().setValue(username);
         usersPage.getFilterButton().click();
@@ -54,6 +68,25 @@ public class UsersSteps extends AdministrationSteps {
     public UsersSteps clickOnCheckboxByUsername(String username) {
         usersPage.getRowsCheckboxes().get(countRowNumberByUsername(username)).click();
         return this;
+    }
+
+    public UsersSteps verifyRoleByUsername(String username, String role, boolean isPerProjectPermissions) {
+        if (isPerProjectPermissions) {
+            usersPage.getRowsRoles().get(countRowNumberByUsername(username) - 1).
+                    $x(".//span[@class='pc__toggle-wrapper']").click();
+            usersPage.getAssignedRole().should(Condition.text(role));
+        } else {
+            usersPage.getRowsRoles().get(countRowNumberByUsername(username) - 1).should(Condition.text(role));
+        }
+        return this;
+    }
+
+    public RolesSteps navigateToUserRolesByUsername(String username) {
+        SelenideElement elem = usersPage.getRowsRoles().get(countRowNumberByUsername(username) - 1);
+        elem.click();
+        elem.should(Condition.hidden);
+
+        return new RolesSteps();
     }
 
     public UsersSteps deleteUserByUsername(String username) {

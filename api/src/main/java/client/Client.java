@@ -42,15 +42,6 @@ public class Client {
     public HttpResponse<String> get(HttpRequest.Builder request) {
         return client.send(request.GET().build(), HttpResponse.BodyHandlers.ofString());
     }
-
-
-    public static RequestSpecification getClient() {
-        return RestAssured.given()
-                .header("Authorization", "Bearer " + token).
-                baseUri(BASE_URL).
-                accept(ContentType.XML).
-                filters(new RequestLoggingFilter(), new ResponseLoggingFilter(), new ErrorLoggingFilter());
-    }
 }
 
 
