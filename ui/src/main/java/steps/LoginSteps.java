@@ -1,6 +1,7 @@
 package steps;
 
 import com.codeborne.selenide.Condition;
+import com.models.User;
 import pages.LoginPage;
 
 public class LoginSteps {
@@ -12,5 +13,9 @@ public class LoginSteps {
         loginPage.getLoginButton().click();
         loginPage.getLoginButton().should(Condition.hidden);
         return new ProjectsSteps();
+    }
+
+    public ProjectsSteps login(User user) {
+        return login(user.getUserName(), user.getUserName());
     }
 }

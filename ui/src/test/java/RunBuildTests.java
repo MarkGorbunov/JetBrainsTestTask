@@ -1,3 +1,4 @@
+import com.config.Config;
 import com.utils.RandomUtil;
 import org.testng.annotations.*;
 
@@ -10,7 +11,7 @@ public class RunBuildTests extends BaseTests {
 
     @BeforeMethod
     public void login() {
-        loginSteps.login("Admin", "Admin");
+        loginSteps.login(Config.getAdminUser());
         projectName = RandomUtil.generateRandomName();
     }
 

@@ -1,24 +1,16 @@
 package com.api;
 
 import client.Client;
-import io.restassured.RestAssured;
-import io.restassured.filter.log.RequestLoggingFilter;
-import io.restassured.filter.log.ResponseLoggingFilter;
-import io.restassured.http.ContentType;
-import io.restassured.response.Response;
 import lombok.SneakyThrows;
 import org.testng.annotations.Test;
 
-import java.net.URI;
-import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
-import static client.AuthorizationUtil.token;
 import static client.Client.USERS;
 import static client.Client.httpRequestBuilder;
 
-public class CreateUserTest {
+public class CreateUserApiTest {
     @Test
     void apiUserCreate() {
         HttpResponse<String> response1 = new Client()

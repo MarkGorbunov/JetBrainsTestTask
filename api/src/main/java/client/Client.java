@@ -1,20 +1,12 @@
 package client;
 
-import io.restassured.RestAssured;
-import io.restassured.filter.log.ErrorLoggingFilter;
-import io.restassured.filter.log.RequestLoggingFilter;
-import io.restassured.filter.log.ResponseLoggingFilter;
-import io.restassured.http.ContentType;
-import io.restassured.specification.RequestSpecification;
+import com.config.Config;
 import lombok.SneakyThrows;
 
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-
-import static client.AuthorizationUtil.token;
 
 public class Client {
     public static final String BASE_URL = "http://localhost:8112/app/rest";
@@ -29,7 +21,7 @@ public class Client {
     public static HttpRequest.Builder httpRequestBuilder(String url) {
         return HttpRequest.newBuilder()
                 .uri(new URI(url))
-                .header("Authorization", "Bearer " + token)
+                .header("Authorization", "Bearer " + Config.getAdminUser().getToken())
                 .header("Content-Type", "application/xml");
     }
 
