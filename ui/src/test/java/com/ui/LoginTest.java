@@ -1,7 +1,8 @@
+package com.ui;
+
 import com.codeborne.selenide.Selenide;
 import com.config.Config;
 import org.testng.annotations.Test;
-import steps.LoginSteps;
 
 public class LoginTest extends BaseTests {
 

@@ -1,3 +1,5 @@
+package com.ui;
+
 import com.config.Config;
 import com.utils.RandomUtil;
 import org.testng.annotations.*;

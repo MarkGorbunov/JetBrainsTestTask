@@ -1,11 +1,20 @@
+package com.ui;
+
 import client.AdministrationClient;
+import com.codeborne.selenide.testng.TextReport;
 import com.config.Config;
 import com.utils.RandomUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import steps.UsersSteps;
 
+@Listeners({ TextReport.class})
 public class CreateUserTest extends BaseTests {
+    private static final Logger Log = LoggerFactory.getLogger(CreateUserTest .class);
+
     String userName;
 
     @BeforeMethod
@@ -16,7 +25,6 @@ public class CreateUserTest extends BaseTests {
     @Test
     public void createUser() {
         new AdministrationClient().changePerProjectPermission(true);
-
         userName = RandomUtil.generateRandomName();
         projectsSteps
                 .getTopHeader()
@@ -46,7 +54,7 @@ public class CreateUserTest extends BaseTests {
     @Test
     public void createUserWithAdministrationRole() {
         new AdministrationClient().changePerProjectPermission(false);
-
+        Log.info("<<<<<<<<verytest>>>>>>>>>>>>");
         userName = RandomUtil.generateRandomName();
         projectsSteps
                 .getTopHeader()

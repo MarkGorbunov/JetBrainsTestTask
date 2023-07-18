@@ -1,3 +1,5 @@
+package com.ui;
+
 import com.config.Config;
 import com.codeborne.selenide.Selenide;
 import config.manager.DriverManager;
