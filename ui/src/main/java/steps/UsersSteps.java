@@ -4,16 +4,21 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import lombok.SneakyThrows;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pages.administration.UsersPage;
 
 import java.time.Duration;
 
 public class UsersSteps extends AdministrationSteps {
+    private static final Logger Log = LoggerFactory.getLogger(UsersSteps .class);
+
     UsersPage usersPage = new UsersPage();
 
     public UsersSteps createUser(String username, String password) {
-        usersPage.getCreateUserLink().click();
+        Log.info("Create user= " + username);
 
+        usersPage.getCreateUserLink().click();
         usersPage.getUsername().setValue(username);
         usersPage.getPassword().setValue(password);
         usersPage.getConfirmPassword().setValue(password);
@@ -71,6 +76,7 @@ public class UsersSteps extends AdministrationSteps {
     }
 
     public UsersSteps verifyRoleByUsername(String username, String role, boolean isPerProjectPermissions) {
+        Log.info("Verify user=" + username + ", have role=" + role);
         if (isPerProjectPermissions) {
             usersPage.getRowsRoles().get(countRowNumberByUsername(username) - 1).
                     $x(".//span[@class='pc__toggle-wrapper']").click();
@@ -82,6 +88,7 @@ public class UsersSteps extends AdministrationSteps {
     }
 
     public RolesSteps navigateToUserRolesByUsername(String username) {
+        Log.info("Navigate to user= " + username + " roles");
         SelenideElement elem = usersPage.getRowsRoles().get(countRowNumberByUsername(username) - 1);
         elem.click();
         elem.should(Condition.hidden);
@@ -90,6 +97,7 @@ public class UsersSteps extends AdministrationSteps {
     }
 
     public UsersSteps deleteUserByUsername(String username) {
+        Log.info("Delete user= " + username);
         usersPage.getSearchInput().clear();
         usersPage.getSearchInput().setValue(username);
         usersPage.getFilterButton().click();

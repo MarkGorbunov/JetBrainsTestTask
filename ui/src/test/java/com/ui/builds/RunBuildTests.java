@@ -1,13 +1,18 @@
-package com.ui;
+package com.ui.builds;
 
 import com.config.Config;
+import com.ui.BaseTests;
 import com.utils.RandomUtil;
-import org.testng.annotations.*;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
+@Test
 public class RunBuildTests extends BaseTests {
     String projectName;
 
@@ -18,8 +23,7 @@ public class RunBuildTests extends BaseTests {
     }
 
     @Test(dataProvider = "runBuildTestDataProvider")
-    public void runFailedBuild(String testName, String branch, String resultMessage) {
-        //todo add log with test name
+    public void runBuild(String branch, String resultMessage) {
         projectsSteps.getTopHeader()
                 .clickOnAddProjectButton()
                 .selectFromRepositoryTab()
@@ -42,7 +46,7 @@ public class RunBuildTests extends BaseTests {
     }
 
     @AfterMethod(alwaysRun = true)
-    public void deleteRun(){
+    public void deleteRun() {
         projectsSteps.getTopHeader()
                 .clickOnProjects()
                 .performProjectSearch(projectName)
@@ -54,10 +58,10 @@ public class RunBuildTests extends BaseTests {
     }
 
     @DataProvider
-    public Iterator<Object[]> runBuildTestDataProvider(){
+    public Iterator<Object[]> runBuildTestDataProvider() {
         Collection<Object[]> dp = new ArrayList<>();
-        dp.add(new Object[]{"Run with failed tests", "refs/heads/failed_tests", "Tests failed: 1 (1 new), passed: 1"});
-        dp.add(new Object[]{"Run with passed tests", "refs/heads/passed_tests", "Tests passed: 2"});
+        dp.add(new Object[]{"refs/heads/failed_tests", "Tests failed: 1 (1 new), passed: 1"});
+        dp.add(new Object[]{"refs/heads/passed_tests", "Tests passed: 2"});
         return dp.iterator();
     }
 }

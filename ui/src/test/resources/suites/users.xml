@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Users related functionality" verbose="1">
+    <test name="CreateUserPerProjectPermissionDisabledTest">
+        <classes>
+            <class name="com.ui.users.CreateUserPerProjectPermissionDisabledTest"/>
+        </classes>
+    </test>
+    <test name="CreateUserPerProjectPermissionEnabledTest">
+        <classes>
+            <class name="com.ui.users.CreateUserPerProjectPermissionEnabledTest"/>
+        </classes>
+    </test>
+    <test name="CreatedUserRunCreatedBuildTest">
+        <classes>
+            <class name="com.ui.users.CreatedUserRunCreatedBuildTest"/>
+        </classes>
+    </test>
+</suite>

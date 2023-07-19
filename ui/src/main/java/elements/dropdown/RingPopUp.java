@@ -2,7 +2,7 @@ package elements.dropdown;
 
 import com.codeborne.selenide.*;
 
-public class DropdownElement {
+public class RingPopUp {
     private SelenideElement baseElement = Selenide.$x("//div[@data-test='ring-popup']");
     private ElementsCollection dropdownOptions = baseElement.$$x(".//div[@role='row']");
 

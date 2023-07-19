@@ -1,10 +1,12 @@
-package com.ui;
+package com.ui.projects;
 
 import com.config.Config;
+import com.ui.BaseTests;
 import com.utils.RandomUtil;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+@Test
 public class CreateProjectTest extends BaseTests {
     String projectName;
 

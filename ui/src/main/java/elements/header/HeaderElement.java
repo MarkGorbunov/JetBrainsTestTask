@@ -2,8 +2,10 @@ package elements.header;
 
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import elements.dropdown.RingPopUp;
 import steps.AdministrationSteps;
 import steps.CreateProjectSteps;
+import steps.LoginSteps;
 import steps.ProjectsSteps;
 
 public class HeaderElement {
@@ -15,6 +17,7 @@ public class HeaderElement {
     private SelenideElement agentsLink = linksContainer.$x(".//a[@href='/agents']");
     private SelenideElement queueLink = linksContainer.$x(".//a[@href='/queue']");
     private SelenideElement administrationLink = baseElement.$x(".//div[@data-hint-container-id='header-administration-link']");
+    private SelenideElement userMenu = baseElement.$x(".//button[@title='admin']");
 
     public ProjectsSteps clickOnProjects() {
         projectsLink.click();
@@ -29,5 +32,11 @@ public class HeaderElement {
     public AdministrationSteps clickOnAdministrationButton() {
         administrationLink.click();
         return new AdministrationSteps();
+    }
+
+    public LoginSteps logout() {
+        userMenu.click();
+        new RingPopUp().selectOptionFromDropdown("Logout");
+        return new LoginSteps();
     }
 }

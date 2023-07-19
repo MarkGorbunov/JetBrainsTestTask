@@ -1,4 +1,4 @@
-package elements.menulist;
+package elements.dropdown;
 
 import com.codeborne.selenide.*;
 

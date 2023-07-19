@@ -2,7 +2,7 @@ package steps;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
-import elements.menulist.MenuListItems;
+import elements.dropdown.MenuListItems;
 import elements.modal.DeleteProjectModal;
 import pages.EditProjectPage;
 

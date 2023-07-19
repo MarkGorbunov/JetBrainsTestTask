@@ -6,4 +6,15 @@ dependencies {
     implementation 'com.codeborne:selenide-testng:6.15.0'
     implementation project(':common')
     implementation project(':api')
+
+    task runUiTests(type: Test) {
+        systemProperties['browser'] = System.getProperty("browser")
+        systemProperties['env'] = System.getProperty("env")
+
+        def suitToRun = System.getProperty("suite") == null ? "regression" : System.getProperty("suite")
+        useTestNG() {
+            suites "src/test/resources/suites/${suitToRun}.xml"
+            //parallel 'tests'
+        }
+    }
 }

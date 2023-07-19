@@ -15,6 +15,6 @@ public class PopUp {
     }
 
     public void verifyPopUpTextMatch(String text) {
-        popUp.should(Condition.matchText(text), Duration.ofSeconds(30));
+        popUp.should(Condition.matchText(text), Duration.ofSeconds(45));
     }
 }

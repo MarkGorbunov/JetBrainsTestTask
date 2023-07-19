@@ -1,7 +1,7 @@
 package steps;
 
 import com.codeborne.selenide.SelenideElement;
-import elements.dropdown.DropdownElement;
+import elements.dropdown.RingPopUp;
 import elements.modal.DuplicateVCSRootModal;
 import pages.CreateProjectPage;
 
@@ -28,7 +28,7 @@ public class CreateProjectSteps extends BaseSteps {
     public class RepositoryTab {
         public RepositoryTab selectParentProject(String parentProjectName) {
             createProjectPage.getParentProjectButton().click();
-            new DropdownElement().selectOptionFromDropdown(parentProjectName);
+            new RingPopUp().selectOptionFromDropdown(parentProjectName);
             createProjectPage.getParentProjectButton().should(text(parentProjectName));
             return this;
         }
@@ -47,7 +47,7 @@ public class CreateProjectSteps extends BaseSteps {
     public class ManuallyTab {
         public ManuallyTab selectParentProject(String parentProjectName) {
             createProjectPage.getParentProjectButton().click();
-            new DropdownElement().selectOptionFromDropdown(parentProjectName);
+            new RingPopUp().selectOptionFromDropdown(parentProjectName);
             createProjectPage.getParentProjectButton().should(text(parentProjectName));
             return this;
         }
