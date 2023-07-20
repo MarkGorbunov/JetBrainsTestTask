@@ -10,6 +10,9 @@ import org.testng.annotations.Test;
 public class CreatedUserRunCreatedBuildTest extends BaseTests {
     String userName;
     String projectName;
+    String repositoryUrl = "https://github.com/MarkGorbunov/SimpleTests.git";
+    String branch = "refs/heads/passed_tests";
+    String stepName = "Gradle";
 
     @BeforeMethod
     public void login() {
@@ -25,13 +28,13 @@ public class CreatedUserRunCreatedBuildTest extends BaseTests {
                 .clickOnAddProjectButton()
                 .selectFromRepositoryTab()
                 .selectParentProject("Common Project")
-                .enterRepositoryUrl("https://github.com/MarkGorbunov/SimpleTests.git")
+                .enterRepositoryUrl(repositoryUrl)
                 .clickOnProceedButton()
                 .enterProjectName(projectName)
                 .enterBuildName(projectName)
-                .enterDefaultBranch("refs/heads/passed_tests")
+                .enterDefaultBranch(branch)
                 .clickOnProceedButton()
-                .clickOnCheckboxByStepName("Gradle")
+                .clickOnCheckboxByStepName(stepName)
                 .clickOnUseSelectedButton()
                 .verifySuccessMessage("New build step added.")
                 .getTopHeader()
@@ -40,7 +43,7 @@ public class CreatedUserRunCreatedBuildTest extends BaseTests {
                 .clickOnUsersSidebarItem()
                 .createUser(userName, "1", false)
                 .verifyUserExistence(userName, true)
-                .verifyRoleByUsername(userName, " ", false)
+                .verifyUserRole(userName, " ", false)
                 .getTopHeader()
                 .logout()
                 .login(userName, "1")

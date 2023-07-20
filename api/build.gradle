@@ -1,8 +1,10 @@
 dependencies {
     implementation group: 'io.rest-assured', name: 'rest-assured', version: '5.3.0'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
     implementation project (':common')
 
     task runApiTests(type: Test) {
+        systemProperty "jdk.internal.httpclient.debug", true //enables logging for HTTP client
         systemProperties['env'] = System.getProperty("env")
         useTestNG() {
             includeGroups "Api"

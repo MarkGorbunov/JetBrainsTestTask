@@ -9,8 +9,6 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 public class Client {
-    public static final String BASE_URL = "http://localhost:8112/app/rest";
-    public static final String USERS = "/users";
     private HttpClient client;
 
     public Client() {
@@ -22,7 +20,7 @@ public class Client {
         return HttpRequest.newBuilder()
                 .uri(new URI(url))
                 .header("Authorization", "Bearer " + Config.getAdminUser().getToken())
-                .header("Content-Type", "application/xml");
+                .header("Content-Type", "application/json");
     }
 
     @SneakyThrows

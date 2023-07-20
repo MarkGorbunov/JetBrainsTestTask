@@ -3,7 +3,9 @@ package steps;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
-import lombok.SneakyThrows;
+import com.models.Role;
+import com.models.RolesModel;
+import com.models.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pages.administration.UsersPage;
@@ -11,22 +13,12 @@ import pages.administration.UsersPage;
 import java.time.Duration;
 
 public class UsersSteps extends AdministrationSteps {
-    private static final Logger Log = LoggerFactory.getLogger(UsersSteps .class);
+    private static final Logger Log = LoggerFactory.getLogger(UsersSteps.class);
 
     UsersPage usersPage = new UsersPage();
 
-    public UsersSteps createUser(String username, String password) {
-        Log.info("Create user= " + username);
-
-        usersPage.getCreateUserLink().click();
-        usersPage.getUsername().setValue(username);
-        usersPage.getPassword().setValue(password);
-        usersPage.getConfirmPassword().setValue(password);
-        usersPage.getCreateUserButton().click();
-        return this;
-    }
-
     public UsersSteps createUser(String username, String password, boolean isAdmin) {
+        Log.info("Create user= " + username);
         usersPage.getCreateUserLink().click();
 
         usersPage.getUsername().setValue(username);
@@ -39,6 +31,13 @@ public class UsersSteps extends AdministrationSteps {
         return this;
     }
 
+    public UsersSteps createUser(String username, String password) {
+        return createUser(username, password, false);
+    }
+
+    public UsersSteps createUser(User user) {
+        return createUser(user.getUsername(), user.getPassword(), user.isAdmin());
+    }
 
     public UserSteps navigateToUser(String username) {
         usersPage.getSearchInput().setValue(username);
@@ -61,7 +60,10 @@ public class UsersSteps extends AdministrationSteps {
         return this;
     }
 
-    @SneakyThrows
+    public UsersSteps verifyUserExistence(User user, boolean exist) {
+        return verifyUserExistence(user.getUsername(), exist);
+    }
+
     public UsersSteps resetSearchFilter() {
         if (usersPage.getResetSearch().isDisplayed()) {
             usersPage.getResetSearch().click();
@@ -75,14 +77,21 @@ public class UsersSteps extends AdministrationSteps {
         return this;
     }
 
-    public UsersSteps verifyRoleByUsername(String username, String role, boolean isPerProjectPermissions) {
+    public UsersSteps verifyUserRole(String username, String role, boolean isPerProjectPermissions) {
         Log.info("Verify user=" + username + ", have role=" + role);
         if (isPerProjectPermissions) {
             usersPage.getRowsRoles().get(countRowNumberByUsername(username) - 1).
                     $x(".//span[@class='pc__toggle-wrapper']").click();
-            usersPage.getAssignedRole().should(Condition.text(role));
+            usersPage.getAssignedRoles().find(Condition.text(role)).should(Condition.exist);
         } else {
             usersPage.getRowsRoles().get(countRowNumberByUsername(username) - 1).should(Condition.text(role));
+        }
+        return this;
+    }
+
+    public UsersSteps verifyUserRole(User user, boolean isPerProjectPermissions) {
+        for (Role role : user.getRoles().getRole()) {
+            verifyUserRole(user.getUsername(), role.getRoleId().getRoleText(), isPerProjectPermissions);
         }
         return this;
     }
@@ -96,7 +105,11 @@ public class UsersSteps extends AdministrationSteps {
         return new RolesSteps();
     }
 
-    public UsersSteps deleteUserByUsername(String username) {
+    public RolesSteps navigateToUserRolesByUsername(User user) {
+        return navigateToUserRolesByUsername(user.getUsername());
+    }
+
+    public UsersSteps deleteUser(String username) {
         Log.info("Delete user= " + username);
         usersPage.getSearchInput().clear();
         usersPage.getSearchInput().setValue(username);
@@ -105,6 +118,10 @@ public class UsersSteps extends AdministrationSteps {
         usersPage.getRemoveUsersButton().click();
         Selenide.switchTo().alert(Duration.ofSeconds(3)).accept();
         return this;
+    }
+
+    public UsersSteps deleteUser(User user) {
+        return deleteUser(user.getUsername());
     }
 
     private int countRowNumberByUsername(String username) {

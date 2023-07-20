@@ -34,7 +34,7 @@ public class CreateUserPerProjectPermissionDisabledTest extends BaseTests {
                 .clickOnUsersSidebarItem()
                 .createUser(userName, "1", isAdmin)
                 .verifyUserExistence(userName, true)
-                .verifyRoleByUsername(userName, role, false);
+                .verifyUserRole(userName, role, false);
     }
 
     @DataProvider
@@ -49,7 +49,7 @@ public class CreateUserPerProjectPermissionDisabledTest extends BaseTests {
     void deleteUser() {
         new UsersSteps()
                 .resetSearchFilter()
-                .deleteUserByUsername(userName)
+                .deleteUser(userName)
                 .verifyUserExistence(userName, false);
     }
 }

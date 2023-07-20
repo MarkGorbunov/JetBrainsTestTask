@@ -25,7 +25,7 @@ public class UsersPage {
     private final ElementsCollection rowsUsernames = $$x("//table[contains(@class, 'userList')]//tr/td[@class='username highlight']");
     private final ElementsCollection rowsCheckboxes = $$x("//table[contains(@class, 'userList')]//tr//input[@id='userId']");
     private final ElementsCollection rowsRoles = $$x("//table[contains(@class, 'userList')]//tr/td[@class='highlight roles']");
-    private final SelenideElement assignedRole = $x("(//div[@class='authorityRolesPopup']//td[@class='roleName'])[1]");
+    private final ElementsCollection assignedRoles = $$x("(//div[@class='authorityRolesPopup']//td[@class='roleName'])[1]");
     //usersInteractionOptions
     private final SelenideElement removeUsersButton = $x("//a[@onclick='return BS.UserListForm.removeSelected();']");
 }

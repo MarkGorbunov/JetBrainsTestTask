@@ -21,7 +21,7 @@ public class Config {
 
     private static void readAdminUser() {
         adminUser = new User();
-        adminUser.setUserName(envProperties.getProperty("username"));
+        adminUser.setUsername(envProperties.getProperty("username"));
         adminUser.setPassword(envProperties.getProperty("password"));
         adminUser.setToken(envProperties.getProperty("token"));
     }

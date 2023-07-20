@@ -16,6 +16,6 @@ public class LoginSteps {
     }
 
     public ProjectsSteps login(User user) {
-        return login(user.getUserName(), user.getUserName());
+        return login(user.getUsername(), user.getUsername());
     }
 }
