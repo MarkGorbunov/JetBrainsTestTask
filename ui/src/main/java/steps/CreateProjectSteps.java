@@ -8,7 +8,7 @@ import pages.CreateProjectPage;
 import static com.codeborne.selenide.Condition.*;
 
 public class CreateProjectSteps extends BaseSteps {
-    CreateProjectPage createProjectPage = new CreateProjectPage();
+    private CreateProjectPage createProjectPage = new CreateProjectPage();
 
     public RepositoryTab selectFromRepositoryTab() {
         clickOnTab(createProjectPage.getFromRepositoryTab());
@@ -27,9 +27,11 @@ public class CreateProjectSteps extends BaseSteps {
 
     public class RepositoryTab {
         public RepositoryTab selectParentProject(String parentProjectName) {
-            createProjectPage.getParentProjectButton().click();
-            new RingPopUp().selectOptionFromDropdown(parentProjectName);
-            createProjectPage.getParentProjectButton().should(text(parentProjectName));
+            if (createProjectPage.getParentProjectButton().isDisplayed()) { //checks if you have only 1 project
+                createProjectPage.getParentProjectButton().click();
+                new RingPopUp().selectOptionFromDropdown(parentProjectName);
+                createProjectPage.getParentProjectButton().should(text(parentProjectName));
+            }
             return this;
         }
 
@@ -98,6 +100,4 @@ public class CreateProjectSteps extends BaseSteps {
             return new DuplicateVCSRootModal();
         }
     }
-
-
 }

@@ -7,7 +7,7 @@ import elements.modal.DeleteProjectModal;
 import pages.EditProjectPage;
 
 public class EditProjectSteps extends BaseSteps {
-    EditProjectPage editProjectPage = new EditProjectPage();
+    private EditProjectPage editProjectPage = new EditProjectPage();
 
     public DeleteProjectModal clickOnDeleteProject() {
         editProjectPage.getActionsButton().should(Condition.visible);

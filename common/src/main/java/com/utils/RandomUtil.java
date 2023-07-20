@@ -9,7 +9,7 @@ public class RandomUtil {
     }
 
     public static String generateRandomNumbers(int length) {
-        return RandomStringUtils.randomNumeric(length); //TODO decide of using timestamp
+        return RandomStringUtils.randomNumeric(length);
     }
 
     public static String generateRandomName(int additionalLength) {

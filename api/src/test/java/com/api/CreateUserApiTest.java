@@ -16,8 +16,7 @@ import java.util.List;
 import static client.Client.httpRequestBuilder;
 
 public class CreateUserApiTest {
-
-    User user = User.builder()
+    private final User user = User.builder()
             .username(RandomUtil.generateRandomName())
             .password(RandomUtil.generateRandomNumbers(5))
             .roles(new Roles(List.of(new Role(RolesModel.PROJECT_ADMIN, "g"))))
@@ -25,14 +24,14 @@ public class CreateUserApiTest {
             .build();
 
     @Test(groups = "Api")
-    void sendCreateUserRequest() {
+    void verifySendCreateUserRequest() {
         String jsonBody = JsonUtil.convertObjectToJson(user);
         HttpResponse<String> response = new Client()
                 .post(httpRequestBuilder(UrlUtils.USERS_URL), jsonBody);
         assert response.statusCode() == 200;
     }
 
-    @Test(groups = "Api", dependsOnMethods = "sendCreateUserRequest")
+    @Test(groups = "Api", dependsOnMethods = "verifySendCreateUserRequest")
     void verifyRetrieveUserByUsernameReturnCorrectData() {
         HttpResponse<String> response = new Client()
                 .get(httpRequestBuilder(UrlUtils.USERS_URL + "/username:" + user.getUsername()));

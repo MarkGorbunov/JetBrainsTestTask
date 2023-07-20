@@ -1,7 +1,5 @@
 package model;
-
-import steps.UsersSteps;
-
+//please, rename package as models
 public enum AdministrationSidebarOptions {
     USERS("Users");
 

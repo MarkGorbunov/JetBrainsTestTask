@@ -2,8 +2,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <suite name="The UI Regression suite">
     <suite-files>
-        <suite-file path="builds.xml"/>
-        <suite-file path="projects.xml"/>
-        <suite-file path="users.xml"/>
+        <suite-file path="perProjectDisabled.xml"/>
+        <suite-file path="perProjectEnabled.xml"/>
     </suite-files>
 </suite>

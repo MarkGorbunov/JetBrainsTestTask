@@ -5,7 +5,7 @@ import com.codeborne.selenide.SelenideElement;
 import pages.BuildPage;
 
 public class BuildSteps extends BaseSteps {
-    BuildPage buildPage = new BuildPage();
+    private BuildPage buildPage = new BuildPage();
 
     public BuildSteps clickOnCheckboxByStepName(String stepName) {
         buildPage.getRunnersCheckbox().get(countRowNumberByStepName(stepName)).click();

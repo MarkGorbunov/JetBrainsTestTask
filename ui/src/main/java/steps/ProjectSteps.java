@@ -5,9 +5,11 @@ import elements.modal.PopUp;
 import pages.ProjectPage;
 
 public class ProjectSteps extends BaseSteps {
-    ProjectPage projectPage = new ProjectPage();
+    private ProjectPage projectPage = new ProjectPage();
 
     public EditProjectSteps clickOnEditProjectButton() {
+        projectPage.getEditProject().should(Condition.exist);
+        projectPage.getEditProject().should(Condition.visible);
         projectPage.getEditProject().click();
         projectPage.getEditProject().should(Condition.hidden);
         return new EditProjectSteps();

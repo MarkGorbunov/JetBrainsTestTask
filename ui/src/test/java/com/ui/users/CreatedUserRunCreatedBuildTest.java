@@ -7,17 +7,17 @@ import com.utils.RandomUtil;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+@Test
 public class CreatedUserRunCreatedBuildTest extends BaseTests {
-    String userName;
-    String projectName;
-    String repositoryUrl = "https://github.com/MarkGorbunov/SimpleTests.git";
-    String branch = "refs/heads/passed_tests";
-    String stepName = "Gradle";
+    private String userName;
+    private String projectName;
+    private String repositoryUrl = "https://github.com/MarkGorbunov/SimpleTests.git";
+    private String branch = "refs/heads/passed_tests";
+    private String stepName = "Gradle";
 
     @BeforeMethod
-    public void login() {
+    public void setUp() {
         loginSteps.login(Config.getAdminUser());
-        new AdministrationClient().changePerProjectPermission(false);
         projectName = RandomUtil.generateRandomName();
     }
 
@@ -27,7 +27,7 @@ public class CreatedUserRunCreatedBuildTest extends BaseTests {
         projectsSteps.getTopHeader()
                 .clickOnAddProjectButton()
                 .selectFromRepositoryTab()
-                .selectParentProject("Common Project")
+                .selectParentProject("<Root project>")
                 .enterRepositoryUrl(repositoryUrl)
                 .clickOnProceedButton()
                 .enterProjectName(projectName)

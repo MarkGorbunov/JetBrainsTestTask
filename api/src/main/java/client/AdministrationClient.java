@@ -1,13 +1,13 @@
 package client;
 
-import lombok.SneakyThrows;
-
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
+import static url.UrlUtils.ADMIN_AUTH_URL;
+
 public class AdministrationClient extends Client {
     public void changePerProjectPermission(boolean isEnabled) {
-        HttpRequest.Builder request = httpRequestBuilder("http://localhost:8112/admin/authAction.html?action=save")
+        HttpRequest.Builder request = httpRequestBuilder(ADMIN_AUTH_URL)
                 .setHeader("Content-Type", "application/x-www-form-urlencoded");
         String body;
         if (isEnabled) {

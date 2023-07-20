@@ -20,7 +20,7 @@ public class CreateUserPerProjectPermissionEnabledTest extends BaseTests {
     User user;
 
     @BeforeMethod
-    public void login() {
+    public void setUp() {
         loginSteps.login(Config.getAdminUser());
 
         user = User.builder()
@@ -31,10 +31,8 @@ public class CreateUserPerProjectPermissionEnabledTest extends BaseTests {
                 .build();
     }
 
+    @Test
     public void createUserWhenPerProjectPermissionEnabled() {
-        new AdministrationClient().changePerProjectPermission(true);
-
-
         projectsSteps
                 .getTopHeader()
                 .clickOnAdministrationButton()
@@ -43,7 +41,7 @@ public class CreateUserPerProjectPermissionEnabledTest extends BaseTests {
                 .createUser(user)
                 .verifyUserExistence(user, true)
                 .navigateToUserRolesByUsername(user)
-                .assignProject(user.getRoles().getRole().get(0).getRoleId().getRoleText(), "<Root project>")
+                .assignProject(user.getRoles().getRole().get(0).getRoleId().getRoleValue(), "<Root project>")
                 .verifySuccessMessage("Roles updated.")
                 .getTopHeader()
                 .clickOnAdministrationButton()

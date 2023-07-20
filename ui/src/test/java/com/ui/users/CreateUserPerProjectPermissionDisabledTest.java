@@ -16,12 +16,11 @@ import java.util.Iterator;
 
 @Test
 public class CreateUserPerProjectPermissionDisabledTest extends BaseTests {
-    String userName;
+    private String userName;
 
     @BeforeMethod
-    public void login() {
+    public void setUp() {
         loginSteps.login(Config.getAdminUser());
-        new AdministrationClient().changePerProjectPermission(false);
     }
 
     @Test(dataProvider = "createDisabledPermissionsUserDataProvider")

@@ -4,7 +4,6 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.models.Role;
-import com.models.RolesModel;
 import com.models.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +14,7 @@ import java.time.Duration;
 public class UsersSteps extends AdministrationSteps {
     private static final Logger Log = LoggerFactory.getLogger(UsersSteps.class);
 
-    UsersPage usersPage = new UsersPage();
+    private UsersPage usersPage = new UsersPage();
 
     public UsersSteps createUser(String username, String password, boolean isAdmin) {
         Log.info("Create user= " + username);
@@ -91,7 +90,7 @@ public class UsersSteps extends AdministrationSteps {
 
     public UsersSteps verifyUserRole(User user, boolean isPerProjectPermissions) {
         for (Role role : user.getRoles().getRole()) {
-            verifyUserRole(user.getUsername(), role.getRoleId().getRoleText(), isPerProjectPermissions);
+            verifyUserRole(user.getUsername(), role.getRoleId().getRoleValue(), isPerProjectPermissions);
         }
         return this;
     }

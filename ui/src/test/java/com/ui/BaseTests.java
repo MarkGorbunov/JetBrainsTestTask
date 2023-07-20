@@ -1,5 +1,6 @@
 package com.ui;
 
+import client.AdministrationClient;
 import com.codeborne.selenide.testng.TextReport;
 import com.config.Config;
 import com.codeborne.selenide.Selenide;
@@ -13,11 +14,19 @@ public class BaseTests {
     protected String baseUrl;
     protected LoginSteps loginSteps = new LoginSteps();
     protected ProjectsSteps projectsSteps = new ProjectsSteps();
+    protected String confirmationCode;
+
+    @BeforeSuite
+    @Parameters({"permission"})
+    protected void initApplicationSettings(boolean perProjectPermission) {
+        new AdministrationClient().changePerProjectPermission(perProjectPermission);
+    }
 
     @BeforeTest(alwaysRun = true)
     protected void setupProperties() {
         DriverManager.setupBrowser();
         baseUrl = Config.getEnv().getProperty("baseUrl");
+        confirmationCode = baseUrl.replaceAll("http://", "");
     }
 
     @BeforeMethod(alwaysRun = true)

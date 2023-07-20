@@ -7,7 +7,6 @@ public class JsonUtil {
     @SneakyThrows
     public static String convertObjectToJson(Object object) {
         ObjectMapper Obj = new ObjectMapper();
-        String jsonStr = Obj.writeValueAsString(object);
-        return jsonStr;
+        return Obj.writeValueAsString(object);
     }
 }

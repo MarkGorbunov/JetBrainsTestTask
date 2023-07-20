@@ -12,5 +12,4 @@ public class ProjectPage {
     private SelenideElement buildStatus = Selenide.$x("//div[contains(@class, 'Build__status')]/a");
 
     private ElementsCollection builds = Selenide.$$x("//button[contains(@class, 'Details')]");
-
 }

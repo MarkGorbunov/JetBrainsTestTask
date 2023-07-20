@@ -14,10 +14,10 @@ import java.util.Iterator;
 
 @Test
 public class RunBuildTests extends BaseTests {
-    String projectName;
+    private String projectName;
 
     @BeforeMethod
-    public void login() {
+    public void setUp() {
         loginSteps.login(Config.getAdminUser());
         projectName = RandomUtil.generateRandomName();
     }
@@ -27,7 +27,7 @@ public class RunBuildTests extends BaseTests {
         projectsSteps.getTopHeader()
                 .clickOnAddProjectButton()
                 .selectFromRepositoryTab()
-                .selectParentProject("Common Project")
+                .selectParentProject("<Root project>")
                 .enterRepositoryUrl("https://github.com/MarkGorbunov/SimpleTests.git")
                 .clickOnProceedButton()
                 .enterProjectName(projectName)
@@ -53,7 +53,7 @@ public class RunBuildTests extends BaseTests {
                 .clickOnEditProjectButton()
                 .clickOnDeleteProject()
                 .verifyModalName("Delete " + "\"" + projectName + "\"" + " Project")
-                .enterConfirmationCode("localhost:8112")
+                .enterConfirmationCode(confirmationCode)
                 .clickOnDeleteButton();
     }
 

@@ -5,7 +5,7 @@ import com.models.User;
 import pages.LoginPage;
 
 public class LoginSteps {
-    LoginPage loginPage = new LoginPage();
+    private LoginPage loginPage = new LoginPage();
 
     public ProjectsSteps login(String username, String password) {
         loginPage.getUsernameInput().setValue(username);

@@ -6,14 +6,14 @@ public enum RolesModel {
     PROJECT_DEVELOPER("Project developer"),
     PROJECT_VIEWER("Project viewer");
 
-    private final String text;
+    private final String value;
 
-    RolesModel(String text) {
-        this.text = text;
+    RolesModel(String value) {
+        this.value = value;
     }
 
-    public String getRoleText() {
-        return text;
+    public String getRoleValue() {
+        return value;
     }
 }
 

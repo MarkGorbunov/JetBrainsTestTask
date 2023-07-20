@@ -8,7 +8,7 @@ import pages.RolesPage;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class RolesSteps extends BaseSteps{
-    RolesPage rolesPage = new RolesPage();
+    private RolesPage rolesPage = new RolesPage();
     public RolesSteps assignProject(String role, String project) {
         rolesPage.getAssignRoleButton().click();
         new AssignRoleModal().selectRole(role)
@@ -20,6 +20,4 @@ public class RolesSteps extends BaseSteps{
         rolesPage.getSuccessMessage().should(Condition.text(message));
         return this;
     }
-
-
 }

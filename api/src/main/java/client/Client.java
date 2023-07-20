@@ -33,5 +33,3 @@ public class Client {
         return client.send(request.GET().build(), HttpResponse.BodyHandlers.ofString());
     }
 }
-
-
