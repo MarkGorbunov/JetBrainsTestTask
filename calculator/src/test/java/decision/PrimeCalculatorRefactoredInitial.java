@@ -5,6 +5,7 @@ import java.time.OffsetDateTime;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -14,7 +15,7 @@ import java.util.stream.IntStream;
 public class PrimeCalculatorRefactoredInitial {
     public static void main(String[] args) throws InterruptedException {
         OffsetDateTime now = OffsetDateTime.now();
-        List<Integer> primes = getPrimes(1000000);
+        ConcurrentLinkedQueue<Integer> primes = getPrimes(1000000);
         System.out.println();
         OffsetDateTime finish = OffsetDateTime.now();
         System.out.println(Duration.between(finish, now).toMillis());
@@ -22,17 +23,15 @@ public class PrimeCalculatorRefactoredInitial {
         System.out.println(primes.stream().sorted().collect(Collectors.toList()).equals(primes));
     }
 
-    private static List<Integer> getPrimes(int maxPrime) throws InterruptedException {
-        final List<Integer> numbers = Collections.synchronizedList(IntStream.rangeClosed(2, maxPrime).
-                boxed().collect(Collectors.toList()));
-
-        List<Integer> primeNumbers = Collections.synchronizedList(new LinkedList<>());
+    private static ConcurrentLinkedQueue<Integer> getPrimes(int maxPrime) throws InterruptedException {
+        ConcurrentLinkedQueue<Integer> primeNumbers = new ConcurrentLinkedQueue<>();
         CountDownLatch latch = new CountDownLatch(maxPrime - 1);
         ExecutorService executors = Executors.newFixedThreadPool(7);
-        for (Integer candidate : numbers) {
+        for (int i = 0; i < maxPrime; i++) {
+            int finalI = i;
             executors.submit(() -> {
-                if (!isPrime(candidate)) {
-                    primeNumbers.add(candidate);
+                if (!isPrime(finalI)) {
+                    primeNumbers.add(finalI);
                 }
                 latch.countDown();
             });

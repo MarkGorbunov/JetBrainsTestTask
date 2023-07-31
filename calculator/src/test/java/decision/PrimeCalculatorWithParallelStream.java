@@ -21,10 +21,9 @@ public class PrimeCalculatorWithParallelStream {
     }
 
     private static List<Integer> getPrimes(int maxPrime) throws ExecutionException, InterruptedException {
-        final List<Integer> numbers = Collections.synchronizedList(IntStream.rangeClosed(2, maxPrime).
-                boxed().collect(Collectors.toList()));
         ForkJoinPool customThreadPool = new ForkJoinPool(7);
-        List<Integer> primeNumbers =  customThreadPool.submit(() -> numbers.parallelStream().filter(candidate -> !isPrime(candidate)).collect(Collectors.toList())).get();
+        List<Integer> primeNumbers = customThreadPool.submit(() -> IntStream.range(2, maxPrime).parallel().
+                filter(candidate -> !isPrime(candidate)).boxed().collect(Collectors.toList())).get();
         customThreadPool.shutdownNow();
         return primeNumbers;
     }
