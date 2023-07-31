@@ -1,0 +1,43 @@
+Description of what was changed:
+1. I investigate BigInteger Iterator and decide that no need to add String and Integers using generate, so after investigation
+is was replaced with (class deleted, and cycle which add items in new list became unneccessary) 
+final List<Integer> numbers = Collections.synchronizedList(IntStream.rangeClosed(2, maxPrime).boxed().collect(Collectors.toList()));
+2. I investigate method isPrime,
+ a. instead of -2, replaced with /2 because prime numbers can be diveded without remainder only with half and less
+ b. Looks like send a collection and create a sub collection each time it is costly , so replaced just with cycle where max i = candidate/2
+ final result:
+    private static boolean isPrime(Integer candidate) {
+        boolean flag = false;
+        for (int i = 2; i <= candidate / 2; ++i) {
+            // condition for nonprime number
+            if (candidate % i == 0) {
+                flag = true;
+                break;
+            }
+        }
+        return flag;
+    }
+3. ExecutorService executors = Executors.newFixedThreadPool(Math.max(maxPrime / 100, 3000));
+ a. Looks like amount is to big, so I found two decisions, first just hardcode value of you machine threads, like 7 in my case, 
+because one will be used by main, or use command ManagementFactory.getThreadMXBean().getThreadCount();
+4. In that example we need lath to know when it will be finished, but initial value must be
+CountDownLatch latch = new CountDownLatch(maxPrime -1);
+5. Instead of removing list values from other array, we can just add required, so
+        for (Integer toRemove : primeNumbersToRemove) {
+            primeNumbers.remove(toRemove);
+        }
+was deleted, and primeNumbersToRemove was renamed to primeNumbersToAdd
+6. As we used here synchronized collection, looks like synchronized word here is redundant
+7. I found that there is some non synchronized collections named concurrent 
+a. ConcurrentLinkedQueue, recieve some speed increasing (but it is not list, but collection and queue) 
+b. CopyOnWriteArrayList it recreate array each time when we update it(so not works for that case, because we often update/add)
+c. Actually because main impact of speed due to not addign operation, but checking for prime, final impact no so big
+but maybe due to low impacd of element adding, and most of time takes checking for isPrime()
+8. Also I found that there is different pools, like ExecutorService and ForkJoinPool, second one more save, but we loose some control of operations
+(actually there many difference)
+9. Also after googling I found some alternatibe way for collections numbers.parallelStream(), that allows us to transfer responsibility 
+to the system
+
+
+
+
