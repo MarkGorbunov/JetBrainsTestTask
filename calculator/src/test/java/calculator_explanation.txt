@@ -37,8 +37,7 @@ but maybe due to the low impact of element adding, and most of the time takes ch
 (actually their many differences)
 9. Also after googling I found some alternative way for collections -numbers.parallelStream(), which allows us to transfer responsibility 
 to the system
-10. After some investigation I realize that initial list with number unnecessary, and we can directly use for loop
-
+10. After some investigation I realize that initial list with number is unnecessary, and we can directly use for loop/intStream
 
 
 
